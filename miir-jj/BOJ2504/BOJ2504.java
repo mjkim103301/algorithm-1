@@ -38,7 +38,7 @@ public class BOJ2504 {
 					check=false;
 					break;
 				}
-				if(input.charAt(i-1)=='(') { //연속된 괄호일 경우에만 result 더해줌(포함된 모든 괄호가 닫힘을 의미)
+				if(input.charAt(i-1)=='(') { //연속된 괄호일 경우에만 result 더해줌(중첩된 모든 괄호가 닫힘을 의미)
 					result+=tmp;
 				}
 				open.pop();

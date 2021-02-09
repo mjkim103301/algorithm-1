@@ -9,13 +9,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-/**
- * 궁수 3명 3명의 위치를 열의 수 M에서 3개뽑는 조합으로 생성 적 죽이는 결과 MAX값 구하기 직진, 직진시 적없을때ㅣ 직진후 좌우
- * 공격도 생각해야함
- * 
- *
- */
-
 
 public class BOJ17135 {
 	static int N, M, D;
