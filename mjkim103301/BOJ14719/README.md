@@ -10,9 +10,9 @@ int: 4바이트 , boolean: 1바이트
 * boolean [][] map 배열에 벽인 부분을 true로 만들었습니다.
 
 * 0행부터 H 행까지 Wx열을 돌면서 3가지의 경우로 나눴습니다.
-    1. map 이 벽이고 isWall 이 false일때  -> 벽이 시작함을 체크합니다.
-    2. map 이 빈공간이고 isWall이 true일때 -> 물을 채울 수 있으므로 빈공간의 개수를 셉니다.
-    3. map이 벽이고 isWall 이 true 일 때 -> 벽이 끝났으므로 빈공간의 개수를 water 변수에 더합니다.
+    1. map 이 벽이고 wallStart == false일때  -> 벽이 시작함을 체크합니다.
+    2. map 이 빈공간이고 wallStart == true일때 -> 물을 채울 수 있으므로 빈공간의 개수를 셉니다.
+    3. map이 벽이고 wallStart == true 일 때 -> 벽이 끝났으므로 빈공간의 개수를 water 변수에 더합니다.
 
 
 ### 예시
