@@ -68,12 +68,3 @@ public class BOJ1303 {
 	}
 
 }
-
-
-
-
-
-
-
-
-
