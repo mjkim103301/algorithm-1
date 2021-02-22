@@ -1,3 +1,5 @@
+# BOJ 2615번 [오목](https://www.acmicpc.net/problem/2615)
+
 ## 🌈 풀이 후기
 
 재귀를 이용하여 풀었습니다. <br>
