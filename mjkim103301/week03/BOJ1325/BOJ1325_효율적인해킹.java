@@ -1,74 +1,70 @@
 package ssafy.algo.study.week03;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 
 public class BOJ1325_효율적인해킹 {
 
     static int N, M;
-    static ArrayList<ArrayList<Integer>> map;
-    static ArrayList<Integer> computer;
+    static ArrayList<Integer>[] map;
     static boolean[] visited;
-    static int[]memo;
-    static int cnt, max;
+    static int[]memo; //해당 열에서 방문할 수 있는 노드 개수
+    static int max;
 
-    public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-        N = scan.nextInt();
-        M = scan.nextInt();
+    public static void main(String[] args)throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
 
-        map = new ArrayList<>(N);
-        computer = new ArrayList<>(N);
+        map = new ArrayList[N+1];
 
         for (int i = 0; i <= N; i++) {
-            map.add(i, new ArrayList<>(N));
+            map[i]= new ArrayList<>();
         }
-        visited = new boolean[N + 1];
+
         memo=new int[N+1];
 
         for (int i = 0; i < M; i++) {
-            int y = scan.nextInt();
-            int x = scan.nextInt();
-            map.get(y).add(x);
+            st = new StringTokenizer(br.readLine(), " ");
+            int y = Integer.parseInt(st.nextToken()); //신뢰하는 주체
+            int x =Integer.parseInt(st.nextToken()); //신뢰하는 대상
+            map[y].add(x);
         }
-
         solution();
         print();
     }
 
+    //memo 배열을 순회하면서 max 값과 일치하는 index를 출력
+    //작은 열 번호부터 순회하기 때문에 정렬하지 않아도 됨.
     static void print() {
-        StringBuilder sb = new StringBuilder();
-
+        
        for(int y=1;y<=N;y++){
            if(max==memo[y]){
-               sb.append(y+" ");
+               System.out.print(y+" ");
            }
        }
-        System.out.print(sb);
     }
 
     static void solution() {
 
         for (int y = 1; y <= N; y++) {
-
             visited=new boolean[N+1];
             dfs(y);
-
         }
-
-        for(int y=1;y<=N;y++){
-            max=Math.max(max, memo[y]);
-        }
-
     }
 
+    //DFS를 돌면서 next(다음에 갈 번호: x) 가 신뢰받는 횟수 ++ 
+    //max 값 갱신
     static void dfs(int y) {
         visited[y] = true;
 
-        int end=map.get(y).size();
-        for(int x=0;x<end;x++){
-            int next=map.get(y).get(x);
-            if(visited[next]) continue;
+        for(int next:map[y]) {
+            if (visited[next]) continue;
             memo[next]++;
+            max = Math.max(max, memo[next]);
             dfs(next);
         }
 
