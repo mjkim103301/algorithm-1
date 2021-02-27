@@ -1,67 +1,62 @@
-package SmiteFLame.BOJ_1325;
+package SmiteFLame.BOJ_2075;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
-public class BOJ_1325 {
-	static int N, M, X, Y, max;
-	static int[] maxList;
-	static boolean[] visited;
-	static ArrayList<Integer>[] hacklist;
+public class BOJ_2075 {
+	static int N;
+	static int[][] data;
+	static PriorityQueue<dataStructure> pQueue = new PriorityQueue<>();
+	static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+	static StringTokenizer st;
 
-	private static void init() throws IOException {
-		BufferedReader io = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(io.readLine());
-		N = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
+	static class dataStructure implements Comparable<dataStructure> {
+		int num, i, j;
 
-		hacklist = new ArrayList[N + 1];
-		maxList = new int[N + 1];
-		for (int i = 1; i <= N; i++) {
-			hacklist[i] = new ArrayList<>();
+		public dataStructure(int num, int i, int j) {
+			this.num = num;
+			this.i = i;
+			this.j = j;
 		}
 
-		for (int i = 0; i < M; i++) {
-			st = new StringTokenizer(io.readLine());
-			X = Integer.parseInt(st.nextToken());
-			Y = Integer.parseInt(st.nextToken());
-			hacklist[X].add(Y);
+		public int compareTo(dataStructure o) {
+			return o.num - this.num;
 		}
 
 	}
 
-	private static void DFS(int idx) {
-		for(int i : hacklist[idx]) {
-			if(visited[i]) continue;
-			visited[i] = true;
-			maxList[i]++;
-			DFS(i);
-			max = maxList[i] > max ? maxList[i] : max;
+	private static void init() throws IOException {
+		N = Integer.parseInt(in.readLine());
+		data = new int[N - 1][N];
+
+		for (int i = 0; i < N - 1; i++) {
+			st = new StringTokenizer(in.readLine());
+			for (int j = 0; j < N; j++) {
+				data[i][j] = Integer.parseInt(st.nextToken());
+			}
 		}
+
+		st = new StringTokenizer(in.readLine());
+		for (int j = 0; j < N; j++) {
+			pQueue.offer(new dataStructure(Integer.parseInt(st.nextToken()), N - 1, j));
+		}
+
 	}
 
 	private static void implement() {
-		for (int i = 1; i <= N; i++) {
-			visited = new boolean[N + 1];
-			visited[i] = true;
-			DFS(i);
+		for (int i = 0; i < N - 1; i++) {
+			dataStructure temp = pQueue.poll();
+			if (temp.i > 0) {
+				pQueue.offer(new dataStructure(data[temp.i - 1][temp.j], temp.i - 1, temp.j));
+			}
 		}
 	}
 
 	private static void print() {
-		StringBuilder sb = new StringBuilder();
-		for (int i = 1; i <= N; i++) {
-			if (maxList[i] == max) {
-				sb.append(i + " ");
-			}
-		}
-		System.out.println(sb.toString());
+		System.out.println(pQueue.poll().num);
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -69,4 +64,5 @@ public class BOJ_1325 {
 		implement();
 		print();
 	}
+
 }
