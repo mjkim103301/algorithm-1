@@ -26,22 +26,3 @@
     B. 처음은 들어가면 초기화 되기 때문에 복사하지 않는다.
 4. 1 - 3번과정을 T번 반복한다.
 5. 전체의 값을 더하여 결과를 출력한다.
-
-
-
-
-
-```java
-L:
-for (int i = 0; i < D; i++) {
-    for (int j = -i; j <= i; j++) {
-        int x = level - (i - Math.abs(j));
-        if (canMove(x, ar + j)) {
-            if (map[x][ar + j] == 1) {
-                if(input(x, ar + j, level)) {
-                    break L;
-                }
-            }
-        }
-    }
-}
