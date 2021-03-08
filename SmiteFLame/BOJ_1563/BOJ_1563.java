@@ -46,3 +46,4 @@ public class BOJ_1563 {
 	}
 
 }
+
