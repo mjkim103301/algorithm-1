@@ -1,24 +1,62 @@
-# BOJ 2615번 오목
+# BOJ 2629번 양팔저울
 
 ## 🌈 풀이 후기
-모든 조건을 탐색하고 선별하는 과정이 너무 어려웠습니다ㅠㅠ<br>
-육목을 제외하는 조건을 설정하고 가장 왼쪽에 있는 답변을 구해야 하면서<br>
-열 우선으로 탐색하는 과정으로 수정하면서 많이 틀렷습니다...<br>
+처음에는 부분집합 문제로 파악해서 3개의 부분집합을 만들어서 풀었습니다<br>
+시간이 너무 오래걸려서 다른 방법을 생각하다가 주제가 DP인걸 보고 DP를 추가했습니다.<br>
 
-각각의 모든 경우의 수를 함수로 만들어서 코드가 많이 길어졌네요
+전에 계산한 결과를 확인하는 subsetData[i]를 추가해서 바로 통과했습니다.
 
 ## 👩‍🏫 문제 풀이
 <br>
 
 ## 변수
-- win, winX, winY(int): 승리한 알의 색, X,Y좌표
-- map(int[][]) 좌표들의 위치
+- N, T(int) - 데이터의 개수, 문제의 개수
+- data(int[]) - 입력받은 데이터의 수
+- subsetData(boolean[][]) - 각 단계에서 가능한 저울의 무게
+- set(Set<Integer>) - 가능한 모든 저울
 
 
 ## 원리
-북동 -> 동 -> 남동 -> 남 으로 탐색을 진행했습니다.
-1. 각각 5개 이상의 여유 분이 남아있는지 확인을 합니다.
-2. 같은 색이 아닌 것이 있으면 return false를 합니다.
-3. 자신의 앞 뒤로 육목이 존재하는 지 확인을 합니다. (+5칸에, -1칸에 두번 검사)
-4. 만약 답이 값을 초기화 하고 나오면 return true를 반환합니다.
-5. implement에서는 하나라도 답이 나오게 되면 return을 하면서 더 이상의 탐색은 하지 않고 종료합니다.
+
+1. 처음에 부분집합으로 풀었을 때 시간초과했던 풀이입니다.<br>
+좌, 우, 포함X를 3가지로 나눠서 3가지의 부분집합을 만들고 문제를 풀었는데 시간초과나왔습니다.
+```java
+private static void subset(int idx) {
+    if(idx == N) {
+        int left = 0, right = 0;
+        for(int i = 0; i < N; i++) {
+            if(subsetData[i] == 1) left += data[i];
+            else if(subsetData[i] == -1) right += data[i];
+        }
+        set.add(Math.abs(left - right));
+        return;
+    }
+    subsetData[idx] = 1;
+    subset(idx + 1);
+    subsetData[idx] = 0;
+    subset(idx + 1);
+    subsetData[idx] = -1;
+    subset(idx + 1);
+}
+```
+
+2. subsetData를 boolean으로 바꿔서 각각의 단계를 저장했습니다<br>
+그리고 sum값이 계속 필요해서 파라미터로 넘겨줘서 풀었습니다
+
+``` java
+private static void subset(int idx, int sum) {
+	if (idx == N) {
+		set.add(sum);
+		return;
+	}
+	
+	if (subsetData[idx][sum])
+		return;
+	
+	subsetData[idx][sum] = true;
+	subset(idx + 1, sum + data[idx]);
+	subset(idx + 1, sum);
+	subset(idx + 1, Math.abs(sum - data[idx]));
+}
+
+```
