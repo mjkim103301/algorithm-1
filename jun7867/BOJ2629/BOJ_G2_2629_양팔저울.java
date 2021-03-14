@@ -16,12 +16,10 @@ public class BOJ_G2_2629_양팔저울 {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		N = Integer.parseInt(br.readLine());
 		weight = new int[N];
-		int sum = 0;
 
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		for (int i = 0; i < N; i++) {
 			weight[i] = Integer.parseInt(st.nextToken());
-			sum += weight[i];
 		}
 		
 		M = Integer.parseInt(br.readLine());
@@ -32,7 +30,7 @@ public class BOJ_G2_2629_양팔저울 {
 		}
 
 		
-		dp = new boolean[N + 1][sum + 40000];
+		dp = new boolean[N + 1][40001];
 
 		subset(0, 0);
 
