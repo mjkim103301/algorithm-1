@@ -74,4 +74,5 @@ public class BOJ_2629 {
 	}
 
 }
+ 
 
