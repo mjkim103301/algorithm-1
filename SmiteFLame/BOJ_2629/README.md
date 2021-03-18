@@ -44,19 +44,19 @@ private static void subset(int idx) {
 그리고 sum값이 계속 필요해서 파라미터로 넘겨줘서 풀었습니다
 
 ``` java
-private static void subset(int idx, int sum) {
-	if (idx == N) {
-		set.add(sum);
-		return;
+	private static void subset(int idx, int sum) {
+		if (idx == N) {
+			set.add(sum);
+			return;
+		}
+		
+		if (subsetData[idx][sum])
+			return;
+		
+		subsetData[idx][sum] = true;
+		subset(idx + 1, sum + data[idx]);
+		subset(idx + 1, sum);
+		subset(idx + 1, Math.abs(sum - data[idx]));
 	}
-	
-	if (subsetData[idx][sum])
-		return;
-	
-	subsetData[idx][sum] = true;
-	subset(idx + 1, sum + data[idx]);
-	subset(idx + 1, sum);
-	subset(idx + 1, Math.abs(sum - data[idx]));
-}
 
 ```
