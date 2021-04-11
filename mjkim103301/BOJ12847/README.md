@@ -1,4 +1,4 @@
-# BOJ 12847번 [꿀 아프바이트]](https://www.acmicpc.net/problem/12847)
+# BOJ 12847번 [꿀 아르바이트](https://www.acmicpc.net/problem/12847)
 
 ## 🌈 풀이 후기
 * 자료형을 long으로 해주면 되는 간단한 문제였습니다.
