@@ -1,4 +1,4 @@
-# BOJ 16937번 [직사각형 탈출](https://www.acmicpc.net/problem/16973)
+# BOJ 16973번 [직사각형 탈출](https://www.acmicpc.net/problem/16973)
 
 ## 🌈 풀이 후기
 * 시간초과가 많이 나서 힘들었습니다.
